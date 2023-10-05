@@ -24,8 +24,8 @@
         /// </summary>
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cntThreads = new System.Windows.Forms.TextBox();
+            this.btnCreate = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.gb = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -33,29 +33,34 @@
             this.trackR = new System.Windows.Forms.TrackBar();
             this.trackG = new System.Windows.Forms.TrackBar();
             this.trackB = new System.Windows.Forms.TrackBar();
-            this.label3 = new System.Windows.Forms.Label();
+            this.color = new System.Windows.Forms.Label();
             this.picBox = new System.Windows.Forms.PictureBox();
+            this.labelR = new System.Windows.Forms.Label();
+            this.labelG = new System.Windows.Forms.Label();
+            this.labelB = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // textBox1
+            // cntThreads
             // 
-            this.textBox1.Location = new System.Drawing.Point(5, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(56, 20);
-            this.textBox1.TabIndex = 0;
+            this.cntThreads.Location = new System.Drawing.Point(5, 20);
+            this.cntThreads.Name = "cntThreads";
+            this.cntThreads.Size = new System.Drawing.Size(56, 20);
+            this.cntThreads.TabIndex = 0;
+            this.cntThreads.TextChanged += new System.EventHandler(this.cntThreads_TextChanged);
             // 
-            // button1
+            // btnCreate
             // 
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(70, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(29, 20);
-            this.button1.TabIndex = 1;
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnCreate.Image = ((System.Drawing.Image)(resources.GetObject("btnCreate.Image")));
+            this.btnCreate.Location = new System.Drawing.Point(65, 20);
+            this.btnCreate.Name = "btnCreate";
+            this.btnCreate.Size = new System.Drawing.Size(29, 20);
+            this.btnCreate.TabIndex = 1;
+            this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
             // label1
             // 
@@ -70,9 +75,9 @@
             // 
             this.gb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gb.Location = new System.Drawing.Point(35, 50);
+            this.gb.Location = new System.Drawing.Point(36, 50);
             this.gb.Name = "gb";
-            this.gb.Size = new System.Drawing.Size(1115, 8);
+            this.gb.Size = new System.Drawing.Size(652, 8);
             this.gb.TabIndex = 3;
             this.gb.TabStop = false;
             // 
@@ -80,9 +85,9 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Location = new System.Drawing.Point(35, 204);
+            this.groupBox1.Location = new System.Drawing.Point(36, 204);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1115, 8);
+            this.groupBox1.Size = new System.Drawing.Size(652, 8);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
@@ -103,10 +108,12 @@
             this.trackR.Location = new System.Drawing.Point(5, 78);
             this.trackR.Maximum = 255;
             this.trackR.Name = "trackR";
-            this.trackR.Size = new System.Drawing.Size(1004, 30);
+            this.trackR.Size = new System.Drawing.Size(509, 30);
             this.trackR.TabIndex = 6;
             this.trackR.TickFrequency = 0;
             this.trackR.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackR.Value = 1;
+            this.trackR.ValueChanged += new System.EventHandler(this.trackR_Scroll);
             // 
             // trackG
             // 
@@ -116,10 +123,12 @@
             this.trackG.Location = new System.Drawing.Point(5, 114);
             this.trackG.Maximum = 255;
             this.trackG.Name = "trackG";
-            this.trackG.Size = new System.Drawing.Size(1004, 30);
+            this.trackG.Size = new System.Drawing.Size(509, 30);
             this.trackG.TabIndex = 7;
             this.trackG.TickFrequency = 0;
             this.trackG.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackG.Value = 1;
+            this.trackG.ValueChanged += new System.EventHandler(this.trackR_Scroll);
             // 
             // trackB
             // 
@@ -129,35 +138,70 @@
             this.trackB.Location = new System.Drawing.Point(5, 149);
             this.trackB.Maximum = 255;
             this.trackB.Name = "trackB";
-            this.trackB.Size = new System.Drawing.Size(1004, 30);
+            this.trackB.Size = new System.Drawing.Size(509, 30);
             this.trackB.TabIndex = 8;
             this.trackB.TickFrequency = 0;
             this.trackB.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackB.Value = 1;
+            this.trackB.ValueChanged += new System.EventHandler(this.trackR_Scroll);
             // 
-            // label3
+            // color
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label3.Location = new System.Drawing.Point(1045, 87);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 94);
-            this.label3.TabIndex = 9;
+            this.color.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.color.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.color.Location = new System.Drawing.Point(576, 87);
+            this.color.Name = "color";
+            this.color.Size = new System.Drawing.Size(104, 94);
+            this.color.TabIndex = 9;
             // 
             // picBox
             // 
-            this.picBox.Location = new System.Drawing.Point(4, 223);
+            this.picBox.Location = new System.Drawing.Point(2, 489);
             this.picBox.Name = "picBox";
-            this.picBox.Size = new System.Drawing.Size(1181, 303);
+            this.picBox.Size = new System.Drawing.Size(720, 37);
             this.picBox.TabIndex = 10;
             this.picBox.TabStop = false;
+            // 
+            // labelR
+            // 
+            this.labelR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelR.AutoSize = true;
+            this.labelR.Location = new System.Drawing.Point(523, 87);
+            this.labelR.Name = "labelR";
+            this.labelR.Size = new System.Drawing.Size(35, 13);
+            this.labelR.TabIndex = 11;
+            this.labelR.Text = "label3";
+            // 
+            // labelG
+            // 
+            this.labelG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelG.AutoSize = true;
+            this.labelG.Location = new System.Drawing.Point(523, 123);
+            this.labelG.Name = "labelG";
+            this.labelG.Size = new System.Drawing.Size(35, 13);
+            this.labelG.TabIndex = 12;
+            this.labelG.Text = "label4";
+            // 
+            // labelB
+            // 
+            this.labelB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelB.AutoSize = true;
+            this.labelB.Location = new System.Drawing.Point(523, 158);
+            this.labelB.Name = "labelB";
+            this.labelB.Size = new System.Drawing.Size(35, 13);
+            this.labelB.TabIndex = 13;
+            this.labelB.Text = "label5";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1189, 532);
+            this.ClientSize = new System.Drawing.Size(726, 532);
+            this.Controls.Add(this.labelB);
+            this.Controls.Add(this.labelG);
+            this.Controls.Add(this.labelR);
             this.Controls.Add(this.picBox);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.color);
             this.Controls.Add(this.trackB);
             this.Controls.Add(this.trackG);
             this.Controls.Add(this.trackR);
@@ -165,10 +209,11 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gb);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnCreate);
+            this.Controls.Add(this.cntThreads);
             this.Name = "Form1";
             this.Text = "Inkle Loom ";
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.trackR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackB)).EndInit();
@@ -180,8 +225,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox cntThreads;
+        private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox gb;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -189,8 +234,11 @@
         private System.Windows.Forms.TrackBar trackR;
         private System.Windows.Forms.TrackBar trackG;
         private System.Windows.Forms.TrackBar trackB;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label color;
         private System.Windows.Forms.PictureBox picBox;
+        private System.Windows.Forms.Label labelR;
+        private System.Windows.Forms.Label labelG;
+        private System.Windows.Forms.Label labelB;
     }
 }
 
