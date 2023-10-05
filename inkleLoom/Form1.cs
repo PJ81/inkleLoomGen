@@ -8,10 +8,15 @@ namespace inkleLoom {
     public partial class Form1 : Form {
 
         List<Thread> threads = new List<Thread>();
+        Bitmap bmp;
 
         public Form1() {
             InitializeComponent();
             cntThreads.Text = "0";
+            bmp = new Bitmap(picBox.Width, picBox.Height);
+            Graphics.FromImage(bmp).Clear(Color.White);
+
+            updateBitmap();
         }
 
         private void trackR_Scroll(object sender, EventArgs e) {
@@ -33,11 +38,11 @@ namespace inkleLoom {
             int cnt = Convert.ToInt32(cntThreads.Text);
             if (cnt % 2 == 0) cnt++;
 
-            int x = 10;
+            int x = 10, y = 16;
             for(int i = 0; i < (cnt / 2) + 1; i++) {
                 Thread t = new Thread();
                 t.Type = Type.HEDDLED;
-                t.setPosition(x, 250);
+                t.setPosition(x, y);
                 x += Thread.THREAD_WID;
                 threads.Add(t);
             }
@@ -46,19 +51,25 @@ namespace inkleLoom {
             for (int i = 0; i < (cnt / 2); i++) {
                 Thread t = new Thread();
                 t.Type = Type.UNHEDDLED;
-                t.setPosition(x, 250 + Thread.THREAD_HEI);
+                t.setPosition(x, y + Thread.THREAD_HEI);
                 x += Thread.THREAD_WID;
                 threads.Add(t);
             }
 
-            Graphics gr = CreateGraphics();
-            foreach (Thread t in threads) {
-                t.draw(gr);
-            }
+            updateBitmap();
         }
 
         private void cntThreads_TextChanged(object sender, EventArgs e) {
             if (cntThreads.Text.Length < 1) cntThreads.Text = "0";
+        }
+
+        private void updateBitmap() {
+            Graphics gr = Graphics.FromImage(bmp);
+            foreach (Thread t in threads) {
+                t.draw(gr);
+            }
+
+            picBox.Image = bmp;
         }
     }
 }

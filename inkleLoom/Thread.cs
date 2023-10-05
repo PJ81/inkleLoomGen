@@ -8,7 +8,9 @@ namespace inkleLoom {
 
     class Thread {
 
-        public const int THREAD_WID = 12, THREAD_HEI = 20;
+        private Pen pen = new Pen(Color.Black);
+
+        public const int THREAD_WID = 10, THREAD_HEI = 20;
 
         public Color Color { get; set; }
 
