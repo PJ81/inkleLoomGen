@@ -8,11 +8,13 @@ namespace inkleLoom {
     public partial class Form1 : Form {
 
         private List<Thread> threads = new List<Thread>();
+        private Dictionary<int, int> dic = new Dictionary<int, int>();
+        private int xThreadsCounter;
+        private Bitmap bmp = null, pal;
         readonly List<Thread> pattern = new List<Thread>();
         readonly Font fnt = new Font("Consolas", 12);
         readonly SolidBrush sb = new SolidBrush(Color.Black);
-
-        private Bitmap bmp = null, pal;
+        readonly Pen pen = new Pen(Color.Black);
 
         public Form1() {
             this.InitializeComponent();
@@ -20,21 +22,16 @@ namespace inkleLoom {
             this.createPalette();
         }
 
-        private void createPalette() {
-            this.pal = new Bitmap(720, 20);
-            Graphics gr = Graphics.FromImage(this.pal);
-            int t = 0;
+        private void Form1_Shown(object sender, EventArgs e) {
+            this.trackR.Value = this.trackG.Value = this.trackB.Value = 0;
+        }
 
-            for (int z = 0; z < 360; z++) {
-                Pen p = new Pen(this.HSLtoRGB(z, 1, 1));
-
-                gr.DrawLine(p, t, 0, t, 20);
-                t++;
-                gr.DrawLine(p, t, 0, t, 20);
-                t++;
-            }
-
-            this.palette.Image = this.pal;
+        private void palette_MouseDown(object sender, MouseEventArgs e) {
+            Color c = this.pal.GetPixel(e.X, e.Y);
+            this.color.BackColor = c;
+            this.trackR.Value = c.R;
+            this.trackG.Value = c.G;
+            this.trackB.Value = c.B;
         }
 
         private void trackR_Scroll(object sender, EventArgs e) {
@@ -48,31 +45,65 @@ namespace inkleLoom {
             this.labelB.Text = b.ToString();
         }
 
-        private Color HSLtoRGB(double h, double s, double b) {
-            Func<double, double> k = (n) => (n + h / 60) % 6;
-            Func<double, double> f = (n) => b * (1 - s * Math.Max(0, Math.Min(Math.Min(k(n), 4 - k(n)), 1)));
+        private void picBox_MouseDown(object sender, MouseEventArgs e) {
+            int x;
+            foreach (Thread t in this.threads) {
+                if (t.Rect.Contains(e.Location)) {
+                    x = t.Rect.X;
+                    if (e.Button == MouseButtons.Right) {
+                        foreach (Thread tt in this.threads) {
+                            if (tt.Rect.X == x) {
+                                tt.clearColor();
+                            }
+                        }
+                    }
+                    else {
+                        foreach (Thread tt in this.threads) {
+                            if (tt.Rect.X == x) {
+                                tt.Color = this.color.BackColor;
+                            }
+                        }
+                    }
 
-            return Color.FromArgb(255, (int)(255 * f(5)), (int)(255 * f(3)), (int)(255 * f(1)));
-        }
+                    this.counter();
 
-        private void Form1_Shown(object sender, EventArgs e) {
-            this.trackR.Value = this.trackG.Value = this.trackB.Value = 0;
+                    this.updateBitmap();
+
+                    return;
+                }
+            }
+
+            foreach (Thread t in pattern) {
+                if (t.RectP.Contains(e.Location)) {
+                    Color c = t.Color;
+                    this.color.BackColor = c;
+                    this.trackR.Value = c.R;
+                    this.trackG.Value = c.G;
+                    this.trackB.Value = c.B;
+
+                    return;
+                }
+            }
         }
 
         private void btnCreate_Click(object sender, EventArgs e) {
             int cnt = Convert.ToInt32(this.cntThreads.Text);
             if (cnt < 4) return;
 
-            int p = cnt * Thread.THREAD_HEI;
+            int p = 70 + cnt * Thread.THREAD_HEI;
+            xThreadsCounter = (cnt / 2 + 1) * Thread.THREAD_WID + 100 + Thread.THREAD_HEI * 4;
+
+            if (p < xThreadsCounter) p = xThreadsCounter;
 
             if (this.bmp != null) this.bmp.Dispose();
 
-            this.bmp = new Bitmap(p + 70, this.picBox.Height);
+            this.bmp = new Bitmap(p, this.picBox.Height);
             Graphics.FromImage(this.bmp).Clear(Color.White);
 
             this.threads.Clear();
+            this.dic.Clear();
 
-            int c = cnt / 2, y = 16, x;
+            int y = 16, x;
             Thread t;
 
             for (int w = 0; w < 5; w++) {
@@ -104,20 +135,6 @@ namespace inkleLoom {
             this.updateBitmap();
         }
 
-        private void createPattern(int cnt) {
-            this.pattern.Clear();
-
-            Thread t;
-            int x = 30, y = this.bmp.Height - 50;
-            for (int i = 0; i < cnt; i++) {
-                t = this.threads[i];
-                t.setPatternPosition(x, y + (t.Type == Type.UNHEDDLED ? Thread.THREAD_HEI + 5 : 0));
-                this.pattern.Add(t);
-
-                x += Thread.THREAD_HEI;
-            }
-        }
-
         private void cntThreads_TextChanged(object sender, EventArgs e) {
             if (this.cntThreads.Text.Length < 1) this.cntThreads.Text = "0";
         }
@@ -139,40 +156,75 @@ namespace inkleLoom {
                 gr.DrawString("U", this.fnt, this.sb, 10, this.bmp.Height - 24);
             }
 
+            int y = 20, x = xThreadsCounter - 3 * Thread.THREAD_HEI;
+            foreach (KeyValuePair<int, int> t in dic) {
+                gr.FillRectangle(new SolidBrush(Color.FromArgb(t.Key)), x, y, Thread.THREAD_HEI, Thread.THREAD_HEI);
+                gr.DrawRectangle(pen, x, y, Thread.THREAD_HEI, Thread.THREAD_HEI);
+
+                gr.DrawString(t.Value.ToString(), fnt, sb, x + Thread.THREAD_HEI + 4, y);
+
+                y += Thread.THREAD_HEI + 4;
+            }
+
             this.picBox.Image = this.bmp;
         }
 
-        private void picBox_MouseDown(object sender, MouseEventArgs e) {
-            int x;
-            foreach (Thread t in this.threads) {
-                if (t.Rect.Contains(e.Location)) {
-                    x = t.Rect.X;
-                    if(e.Button == MouseButtons.Right) {
-                        foreach (Thread tt in this.threads) {
-                            if (tt.Rect.X == x) {
-                                tt.clearColor();
-                            }
-                        }
-                    } else {
-                        foreach (Thread tt in this.threads) {
-                            if (tt.Rect.X == x) {
-                                tt.Color = this.color.BackColor;
-                            }
-                        }
-                    }
+        private void counter() {
 
-                    this.updateBitmap();
-                    return;
+            this.dic.Clear();
+
+            int clr;
+
+            foreach (Thread t in pattern) {
+                if (t.Color == Color.Transparent) continue;
+
+                clr = t.Color.ToArgb();
+
+                if (dic.ContainsKey(clr)) {
+                    dic[clr]++;
+                }
+                else {
+                    dic[clr] = 1;
                 }
             }
         }
 
-        private void palette_MouseDown(object sender, MouseEventArgs e) {
-            Color c = this.pal.GetPixel(e.X, e.Y);
-            this.color.BackColor = c;
-            this.trackR.Value = c.R;
-            this.trackG.Value = c.G;
-            this.trackB.Value = c.B;
+        private void createPattern(int cnt) {
+            this.pattern.Clear();
+
+            Thread t;
+            int x = 30, y = this.bmp.Height - 50;
+            for (int i = 0; i < cnt; i++) {
+                t = this.threads[i];
+                t.setPatternPosition(x, y + (t.Type == Type.UNHEDDLED ? Thread.THREAD_HEI + 5 : 0));
+                this.pattern.Add(t);
+
+                x += Thread.THREAD_HEI;
+            }
+        }
+
+        private void createPalette() {
+
+            Color HSLtoRGB(double h, double s, double b) {
+                Func<double, double> k = (n) => (n + h / 60) % 6;
+                Func<double, double> f = (n) => b * (1 - s * Math.Max(0, Math.Min(Math.Min(k(n), 4 - k(n)), 1)));
+                return Color.FromArgb(255, (int)(255 * f(5)), (int)(255 * f(3)), (int)(255 * f(1)));
+            }
+
+            this.pal = new Bitmap(720, 20);
+            Graphics gr = Graphics.FromImage(this.pal);
+            int t = 0;
+
+            for (int z = 0; z < 360; z++) {
+                Pen p = new Pen(HSLtoRGB(z, 1, 1));
+
+                gr.DrawLine(p, t, 0, t, 20);
+                t++;
+                gr.DrawLine(p, t, 0, t, 20);
+                t++;
+            }
+
+            this.palette.Image = this.pal;
         }
     }
 }

@@ -49,19 +49,21 @@
             // 
             // cntThreads
             // 
-            this.cntThreads.Location = new System.Drawing.Point(5, 20);
+            this.cntThreads.Location = new System.Drawing.Point(8, 21);
             this.cntThreads.Name = "cntThreads";
-            this.cntThreads.Size = new System.Drawing.Size(56, 20);
+            this.cntThreads.Size = new System.Drawing.Size(39, 20);
             this.cntThreads.TabIndex = 0;
             this.cntThreads.TextChanged += new System.EventHandler(this.cntThreads_TextChanged);
             // 
             // btnCreate
             // 
             this.btnCreate.Image = ((System.Drawing.Image)(resources.GetObject("btnCreate.Image")));
-            this.btnCreate.Location = new System.Drawing.Point(65, 20);
+            this.btnCreate.Location = new System.Drawing.Point(51, 19);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(29, 20);
+            this.btnCreate.Size = new System.Drawing.Size(62, 24);
             this.btnCreate.TabIndex = 1;
+            this.btnCreate.Text = "Create";
+            this.btnCreate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 

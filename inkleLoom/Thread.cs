@@ -8,14 +8,13 @@ namespace inkleLoom {
 
     class Thread {
 
-        private Pen pen = new Pen(Color.Black);
-
         internal const int THREAD_WID = 10, THREAD_HEI = 20;
 
+        private Pen pen = new Pen(Color.Black);
         private SolidBrush clr = null;
 
         internal Color Color {
-            get { return this.clr.Color; }
+            get { if (this.clr != null) return this.clr.Color; else return Color.Transparent; }
             set { this.clr = new SolidBrush(value); }
         }
 
