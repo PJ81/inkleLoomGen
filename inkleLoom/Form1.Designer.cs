@@ -39,10 +39,12 @@
             this.labelG = new System.Windows.Forms.Label();
             this.labelB = new System.Windows.Forms.Label();
             this.palette = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.trackR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cntThreads
@@ -157,12 +159,10 @@
             // 
             // picBox
             // 
-            this.picBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.picBox.Location = new System.Drawing.Point(5, 242);
+            this.picBox.Location = new System.Drawing.Point(1, 1);
             this.picBox.Name = "picBox";
-            this.picBox.Size = new System.Drawing.Size(720, 412);
+            this.picBox.Size = new System.Drawing.Size(718, 390);
+            this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.picBox.TabIndex = 10;
             this.picBox.TabStop = false;
             this.picBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseDown);
@@ -206,16 +206,29 @@
             this.palette.TabIndex = 14;
             this.palette.MouseDown += new System.Windows.Forms.MouseEventHandler(this.palette_MouseDown);
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.picBox);
+            this.panel1.Location = new System.Drawing.Point(5, 238);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(720, 417);
+            this.panel1.TabIndex = 15;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(730, 658);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.palette);
             this.Controls.Add(this.labelB);
             this.Controls.Add(this.labelG);
             this.Controls.Add(this.labelR);
-            this.Controls.Add(this.picBox);
             this.Controls.Add(this.color);
             this.Controls.Add(this.trackB);
             this.Controls.Add(this.trackG);
@@ -234,6 +247,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -256,6 +271,7 @@
         private System.Windows.Forms.Label labelG;
         private System.Windows.Forms.Label labelB;
         private System.Windows.Forms.Label palette;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

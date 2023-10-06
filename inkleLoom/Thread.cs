@@ -14,29 +14,39 @@ namespace inkleLoom {
 
         private SolidBrush clr = null;
 
-        internal Color Color { 
-            get { return clr.Color; }
-            set { clr = new SolidBrush(value); } 
+        internal Color Color {
+            get { return this.clr.Color; }
+            set { this.clr = new SolidBrush(value); }
         }
 
         internal Type Type { get; set; }
 
-        internal Rectangle Rect{ get; private set; }
+        internal Rectangle Rect { get; private set; }
 
         internal Rectangle RectP { get; private set; }
 
         internal void setPosition(int x, int y) {
-            Rect = new Rectangle(x, y, THREAD_WID, THREAD_HEI);
-            RectP = new Rectangle(x, 200 + y + (Type == Type.UNHEDDLED ? THREAD_WID : 0), THREAD_WID, THREAD_WID);
+            this.Rect = new Rectangle(x, y, THREAD_WID, THREAD_HEI);
+        }
+
+        internal void setPatternPosition(int x, int y) {
+            this.RectP = new Rectangle(x, y, THREAD_HEI, THREAD_HEI);
         }
 
         internal void draw(Graphics gr, bool pat = false) {
-            Rectangle rc = pat ? RectP : Rect;
+            Rectangle rc = pat ? this.RectP : this.Rect;
 
-            if(clr != null) {
-                gr.FillRectangle(clr, rc);
+            if (this.clr != null) {
+                gr.FillRectangle(this.clr, rc);
             }
-            gr.DrawRectangle(pen, rc);
+            gr.DrawRectangle(this.pen, rc);
+        }
+
+        internal void clearColor() {
+            if (clr != null) {
+                clr.Dispose();
+                clr = null;
+            }
         }
     }
 }
