@@ -38,6 +38,7 @@
             this.labelR = new System.Windows.Forms.Label();
             this.labelG = new System.Windows.Forms.Label();
             this.labelB = new System.Windows.Forms.Label();
+            this.palette = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackB)).BeginInit();
@@ -75,9 +76,9 @@
             // 
             this.gb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gb.Location = new System.Drawing.Point(36, 50);
+            this.gb.Location = new System.Drawing.Point(37, 50);
             this.gb.Name = "gb";
-            this.gb.Size = new System.Drawing.Size(652, 8);
+            this.gb.Size = new System.Drawing.Size(656, 8);
             this.gb.TabIndex = 3;
             this.gb.TabStop = false;
             // 
@@ -85,9 +86,9 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Location = new System.Drawing.Point(36, 204);
+            this.groupBox1.Location = new System.Drawing.Point(37, 223);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(652, 8);
+            this.groupBox1.Size = new System.Drawing.Size(656, 8);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
@@ -108,7 +109,7 @@
             this.trackR.Location = new System.Drawing.Point(5, 78);
             this.trackR.Maximum = 255;
             this.trackR.Name = "trackR";
-            this.trackR.Size = new System.Drawing.Size(509, 30);
+            this.trackR.Size = new System.Drawing.Size(513, 30);
             this.trackR.TabIndex = 6;
             this.trackR.TickFrequency = 0;
             this.trackR.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -123,7 +124,7 @@
             this.trackG.Location = new System.Drawing.Point(5, 114);
             this.trackG.Maximum = 255;
             this.trackG.Name = "trackG";
-            this.trackG.Size = new System.Drawing.Size(509, 30);
+            this.trackG.Size = new System.Drawing.Size(513, 30);
             this.trackG.TabIndex = 7;
             this.trackG.TickFrequency = 0;
             this.trackG.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -138,7 +139,7 @@
             this.trackB.Location = new System.Drawing.Point(5, 149);
             this.trackB.Maximum = 255;
             this.trackB.Name = "trackB";
-            this.trackB.Size = new System.Drawing.Size(509, 30);
+            this.trackB.Size = new System.Drawing.Size(513, 30);
             this.trackB.TabIndex = 8;
             this.trackB.TickFrequency = 0;
             this.trackB.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -149,54 +150,68 @@
             // 
             this.color.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.color.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.color.Location = new System.Drawing.Point(576, 87);
+            this.color.Location = new System.Drawing.Point(580, 87);
             this.color.Name = "color";
             this.color.Size = new System.Drawing.Size(104, 94);
             this.color.TabIndex = 9;
             // 
             // picBox
             // 
-            this.picBox.Location = new System.Drawing.Point(2, 223);
+            this.picBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.picBox.Location = new System.Drawing.Point(5, 242);
             this.picBox.Name = "picBox";
-            this.picBox.Size = new System.Drawing.Size(720, 303);
+            this.picBox.Size = new System.Drawing.Size(720, 412);
             this.picBox.TabIndex = 10;
             this.picBox.TabStop = false;
+            this.picBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseDown);
             // 
             // labelR
             // 
             this.labelR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelR.AutoSize = true;
-            this.labelR.Location = new System.Drawing.Point(523, 87);
+            this.labelR.Location = new System.Drawing.Point(527, 87);
             this.labelR.Name = "labelR";
-            this.labelR.Size = new System.Drawing.Size(35, 13);
+            this.labelR.Size = new System.Drawing.Size(15, 13);
             this.labelR.TabIndex = 11;
-            this.labelR.Text = "label3";
+            this.labelR.Text = "R";
             // 
             // labelG
             // 
             this.labelG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelG.AutoSize = true;
-            this.labelG.Location = new System.Drawing.Point(523, 123);
+            this.labelG.Location = new System.Drawing.Point(527, 123);
             this.labelG.Name = "labelG";
-            this.labelG.Size = new System.Drawing.Size(35, 13);
+            this.labelG.Size = new System.Drawing.Size(15, 13);
             this.labelG.TabIndex = 12;
-            this.labelG.Text = "label4";
+            this.labelG.Text = "G";
             // 
             // labelB
             // 
             this.labelB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelB.AutoSize = true;
-            this.labelB.Location = new System.Drawing.Point(523, 158);
+            this.labelB.Location = new System.Drawing.Point(527, 158);
             this.labelB.Name = "labelB";
-            this.labelB.Size = new System.Drawing.Size(35, 13);
+            this.labelB.Size = new System.Drawing.Size(14, 13);
             this.labelB.TabIndex = 13;
-            this.labelB.Text = "label5";
+            this.labelB.Text = "B";
+            // 
+            // palette
+            // 
+            this.palette.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.palette.Location = new System.Drawing.Point(5, 196);
+            this.palette.Name = "palette";
+            this.palette.Size = new System.Drawing.Size(720, 20);
+            this.palette.TabIndex = 14;
+            this.palette.MouseDown += new System.Windows.Forms.MouseEventHandler(this.palette_MouseDown);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(726, 532);
+            this.ClientSize = new System.Drawing.Size(730, 658);
+            this.Controls.Add(this.palette);
             this.Controls.Add(this.labelB);
             this.Controls.Add(this.labelG);
             this.Controls.Add(this.labelR);
@@ -211,6 +226,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.cntThreads);
+            this.MinimumSize = new System.Drawing.Size(746, 697);
             this.Name = "Form1";
             this.Text = "Inkle Loom ";
             this.Shown += new System.EventHandler(this.Form1_Shown);
@@ -239,6 +255,7 @@
         private System.Windows.Forms.Label labelR;
         private System.Windows.Forms.Label labelG;
         private System.Windows.Forms.Label labelB;
+        private System.Windows.Forms.Label palette;
     }
 }
 
