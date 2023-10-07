@@ -17,6 +17,7 @@ namespace inkleLoom {
         readonly SolidBrush sb = new SolidBrush(Color.Black);
         readonly Pen pen = new Pen(Color.Black);
 
+
         public Form1() {
             this.InitializeComponent();
             this.cntThreads.Text = "0";

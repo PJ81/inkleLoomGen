@@ -14,6 +14,7 @@ namespace inkleLoom {
         private Pen pen = new Pen(Color.Black);
         private SolidBrush clr = null;
 
+
         internal Color Color {
             get { return this.clr != null ? this.clr.Color : Color.Transparent; }
             set { this.clr = new SolidBrush(value); }
