@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.IO;
 
 namespace inkleLoom {
 
@@ -14,7 +15,7 @@ namespace inkleLoom {
         private SolidBrush clr = null;
 
         internal Color Color {
-            get { if (this.clr != null) return this.clr.Color; else return Color.Transparent; }
+            get { return this.clr != null ? this.clr.Color : Color.Transparent; }
             set { this.clr = new SolidBrush(value); }
         }
 
@@ -46,6 +47,15 @@ namespace inkleLoom {
                 clr.Dispose();
                 clr = null;
             }
+        }
+
+        internal void save(StreamWriter writer) {
+            writer.WriteLine(Color.ToArgb());
+            writer.WriteLine(Type);
+            writer.WriteLine(Rect.X);
+            writer.WriteLine(Rect.Y);
+            writer.WriteLine(RectP.X);
+            writer.WriteLine(RectP.Y);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace inkleLoom {
@@ -87,23 +88,15 @@ namespace inkleLoom {
         }
 
         private void btnCreate_Click(object sender, EventArgs e) {
-            int cnt = Convert.ToInt32(this.cntThreads.Text);
-            if (cnt < 4) return;
 
-            int p = 70 + cnt * Thread.THREAD_HEI;
-            xThreadsCounter = (cnt / 2 + 1) * Thread.THREAD_WID + 100 + Thread.THREAD_HEI * 4;
+            if (!createBitmap()) return;
 
-            if (p < xThreadsCounter) p = xThreadsCounter;
-
-            if (this.bmp != null) this.bmp.Dispose();
-
-            this.bmp = new Bitmap(p, this.picBox.Height);
             Graphics.FromImage(this.bmp).Clear(Color.White);
 
             this.threads.Clear();
             this.dic.Clear();
 
-            int y = 16, x;
+            int cnt = Convert.ToInt32(this.cntThreads.Text), y = 16, x;
             Thread t;
 
             for (int w = 0; w < 5; w++) {
@@ -137,6 +130,87 @@ namespace inkleLoom {
 
         private void cntThreads_TextChanged(object sender, EventArgs e) {
             if (this.cntThreads.Text.Length < 1) this.cntThreads.Text = "0";
+        }
+
+        private void btnSave_Click(object sender, EventArgs e) {
+            if (saveDlg.ShowDialog() == DialogResult.OK) {
+                FileStream strm = new FileStream(saveDlg.FileName, FileMode.Create, FileAccess.Write);
+                StreamWriter writer = new StreamWriter(strm);
+                writer.BaseStream.Seek(0, SeekOrigin.End);
+
+                writer.WriteLine(threads.Count);
+
+                foreach (Thread t in threads) {
+                    t.save(writer);
+                }
+
+                writer.Flush();
+                writer.Close();
+            }
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e) {
+            if (openDlg.ShowDialog() == DialogResult.OK) {
+                FileStream strm = new FileStream(openDlg.FileName, FileMode.Open, FileAccess.Read);
+                StreamReader reader = new StreamReader(strm);
+
+                threads.Clear();
+                pattern.Clear();
+                dic.Clear();
+
+                int cnt = Convert.ToInt32(reader.ReadLine()),
+                    x, y;
+                Color c;
+
+                cntThreads.Text = (cnt / 5).ToString();
+
+                for (int i = 0; i < cnt; i++) {
+                    Thread t = new Thread();
+                    c = Color.FromArgb(Convert.ToInt32(reader.ReadLine()));
+                    if (c.A != 0) t.Color = c;
+
+                    t.Type = (Type)Enum.Parse(typeof(Type), reader.ReadLine());
+
+                    x = Convert.ToInt32(reader.ReadLine());
+                    y = Convert.ToInt32(reader.ReadLine());
+                    t.setPosition(x, y);
+
+                    x = Convert.ToInt32(reader.ReadLine());
+                    y = Convert.ToInt32(reader.ReadLine());
+                    t.setPatternPosition(x, y);
+
+
+                    threads.Add(t);
+                }
+
+                reader.Close();
+
+                createBitmap();
+
+                for (int i = 0; i < (cnt / 5); i++) {
+                    pattern.Add(threads[i]);
+                }
+
+                counter();
+
+                updateBitmap();
+            }
+        }
+
+        private bool createBitmap() {
+            int cnt = Convert.ToInt32(this.cntThreads.Text);
+            if (cnt < 4) return false;
+
+            int p = 70 + cnt * Thread.THREAD_HEI;
+            xThreadsCounter = (cnt / 2 + 1) * Thread.THREAD_WID + 100 + Thread.THREAD_HEI * 4;
+
+            if (p < xThreadsCounter) p = xThreadsCounter;
+
+            if (this.bmp != null) this.bmp.Dispose();
+
+            this.bmp = new Bitmap(p, this.picBox.Height);
+
+            return true;
         }
 
         private void updateBitmap() {
