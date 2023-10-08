@@ -43,18 +43,18 @@
             this.openDlg = new System.Windows.Forms.OpenFileDialog();
             this.saveDlg = new System.Windows.Forms.SaveFileDialog();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.picBox2 = new System.Windows.Forms.PictureBox();
-            this.btnSymm = new System.Windows.Forms.CheckBox();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.btnExport = new System.Windows.Forms.Button();
+            this.btnSymm = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox2)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // cntThreads
@@ -250,6 +250,16 @@
             this.panel2.Size = new System.Drawing.Size(744, 119);
             this.panel2.TabIndex = 18;
             // 
+            // picBox2
+            // 
+            this.picBox2.Location = new System.Drawing.Point(1, 0);
+            this.picBox2.Name = "picBox2";
+            this.picBox2.Size = new System.Drawing.Size(727, 88);
+            this.picBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picBox2.TabIndex = 11;
+            this.picBox2.TabStop = false;
+            this.picBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBox2_MouseDown);
+            // 
             // panel3
             // 
             this.panel3.AutoScroll = true;
@@ -275,29 +285,6 @@
             this.panel3.Size = new System.Drawing.Size(744, 219);
             this.panel3.TabIndex = 19;
             // 
-            // picBox2
-            // 
-            this.picBox2.Location = new System.Drawing.Point(1, 0);
-            this.picBox2.Name = "picBox2";
-            this.picBox2.Size = new System.Drawing.Size(727, 88);
-            this.picBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.picBox2.TabIndex = 11;
-            this.picBox2.TabStop = false;
-            this.picBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBox2_MouseDown);
-            // 
-            // btnSymm
-            // 
-            this.btnSymm.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnSymm.Image = ((System.Drawing.Image)(resources.GetObject("btnSymm.Image")));
-            this.btnSymm.Location = new System.Drawing.Point(137, 26);
-            this.btnSymm.Name = "btnSymm";
-            this.btnSymm.Size = new System.Drawing.Size(87, 24);
-            this.btnSymm.TabIndex = 20;
-            this.btnSymm.Text = "Symmetrical";
-            this.btnSymm.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnSymm.UseVisualStyleBackColor = true;
-            this.btnSymm.CheckedChanged += new System.EventHandler(this.btnSymm_CheckedChanged);
-            // 
             // btnExport
             // 
             this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
@@ -310,7 +297,19 @@
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
-            // Form1
+            // btnSymm
+            // 
+            this.btnSymm.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnSymm.Image = ((System.Drawing.Image)(resources.GetObject("btnSymm.Image")));
+            this.btnSymm.Location = new System.Drawing.Point(137, 26);
+            this.btnSymm.Name = "btnSymm";
+            this.btnSymm.Size = new System.Drawing.Size(87, 24);
+            this.btnSymm.TabIndex = 20;
+            this.btnSymm.Text = "Symmetrical";
+            this.btnSymm.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnSymm.UseVisualStyleBackColor = true;
+            // 
+            // Create
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -320,7 +319,7 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.MinimumSize = new System.Drawing.Size(746, 697);
-            this.Name = "Form1";
+            this.Name = "Create";
             this.Text = "Inkle Loom ";
             this.Shown += new System.EventHandler(this.Form1_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.trackR)).EndInit();
@@ -331,9 +330,9 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox2)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
