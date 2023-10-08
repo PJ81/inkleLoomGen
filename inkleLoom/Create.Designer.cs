@@ -83,7 +83,7 @@
             this.label1.Location = new System.Drawing.Point(3, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
-            this.label1.TabIndex = 2;
+            this.label1.TabIndex = 20;
             this.label1.Text = "Threads:";
             // 
             // label2
@@ -92,7 +92,7 @@
             this.label2.Location = new System.Drawing.Point(3, 59);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(39, 13);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 21;
             this.label2.Text = "Colors:";
             // 
             // trackR
@@ -214,7 +214,7 @@
             this.btnSave.Location = new System.Drawing.Point(227, 26);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(62, 24);
-            this.btnSave.TabIndex = 16;
+            this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Save";
             this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnSave.UseVisualStyleBackColor = true;
@@ -226,7 +226,7 @@
             this.btnLoad.Location = new System.Drawing.Point(292, 26);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(62, 24);
-            this.btnLoad.TabIndex = 17;
+            this.btnLoad.TabIndex = 4;
             this.btnLoad.Text = "Load";
             this.btnLoad.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLoad.UseVisualStyleBackColor = true;
@@ -291,7 +291,7 @@
             this.btnExport.Location = new System.Drawing.Point(357, 26);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(62, 24);
-            this.btnExport.TabIndex = 20;
+            this.btnExport.TabIndex = 5;
             this.btnExport.Text = "Export";
             this.btnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnExport.UseVisualStyleBackColor = true;
@@ -304,7 +304,7 @@
             this.btnSymm.Location = new System.Drawing.Point(137, 26);
             this.btnSymm.Name = "btnSymm";
             this.btnSymm.Size = new System.Drawing.Size(87, 24);
-            this.btnSymm.TabIndex = 20;
+            this.btnSymm.TabIndex = 2;
             this.btnSymm.Text = "Symmetrical";
             this.btnSymm.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnSymm.UseVisualStyleBackColor = true;
