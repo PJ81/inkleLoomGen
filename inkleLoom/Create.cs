@@ -10,15 +10,13 @@ namespace inkleLoom {
 
         private const int ROW_CNT = 8;
 
-        private List<Thread> threads = new List<Thread>();
-        private readonly Dictionary<int, int> dic = new Dictionary<int, int>();
+        private readonly List<Thread> threads = new List<Thread>();
+        private readonly List<ColorSquare> colors = new List<ColorSquare>();
         private int xThreadsCounter, threadCount;
         private Bitmap bmp1 = null, bmp2 = null, pal;
         readonly List<Thread> pattern = new List<Thread>();
         readonly Font fnt = new Font("Consolas", 12);
         readonly SolidBrush sb = new SolidBrush(Color.Black);
-        readonly Pen pen = new Pen(Color.Black);
-
 
         public Create() {
             this.InitializeComponent();
@@ -56,8 +54,8 @@ namespace inkleLoom {
                         foreach (Thread tt in this.threads) {
                             if (tt.Rect.X == x) {
                                 tt.clearColor();
-                                if (btnSymm.Checked) {
-                                    updateTheads(t.Index, Color.Transparent);
+                                if (this.btnSymm.Checked) {
+                                    this.updateTheads(t.Index, Color.Transparent);
                                 }
                             }
                         }
@@ -66,8 +64,8 @@ namespace inkleLoom {
                         foreach (Thread tt in this.threads) {
                             if (tt.Rect.X == x) {
                                 tt.Color = this.color.BackColor;
-                                if (btnSymm.Checked) {
-                                    updateTheads(t.Index, tt.Color);
+                                if (this.btnSymm.Checked) {
+                                    this.updateTheads(t.Index, tt.Color);
                                 }
                             }
                         }
@@ -80,11 +78,32 @@ namespace inkleLoom {
                     return;
                 }
             }
+
+            foreach (ColorSquare q in this.colors) {
+                if (q.Rect.Contains(e.Location)) {
+                    this.clrDlg.Color = q.Color;
+                    if (this.clrDlg.ShowDialog() == DialogResult.OK) {
+                        this.updateColors(q.Color, this.clrDlg.Color);
+                        break;
+                    }
+                }
+            }
+
+            this.counter();
+            this.updateBitmap();
+        }
+
+        private void updateColors(Color c1, Color c2) {
+            foreach (Thread t in this.threads) {
+                if (t.Color.ToArgb() == c1.ToArgb()) {
+                    t.Color = c2;
+                }
+            }
         }
 
         private void updateTheads(int index, Color color) {
-            int i = threadCount - index - 1;
-            foreach (Thread t in threads) {
+            int i = this.threadCount - index - 1;
+            foreach (Thread t in this.threads) {
                 if (t.Index == i) {
                     if (color.A < 255) t.clearColor();
                     else t.Color = color;
@@ -94,15 +113,13 @@ namespace inkleLoom {
 
         private void btnCreate_Click(object sender, EventArgs e) {
 
-            threadCount = Convert.ToInt32(this.cntThreads.Text);
+            this.threadCount = Convert.ToInt32(this.cntThreads.Text);
 
-            if (!createBitmap()) return;
+            if (!this.createBitmap()) return;
 
             Graphics.FromImage(this.bmp1).Clear(Color.White);
 
             this.threads.Clear();
-            this.dic.Clear();
-
 
             int y = 16, x;
             Thread t;
@@ -110,7 +127,7 @@ namespace inkleLoom {
             for (int w = 0; w < ROW_CNT; w++) {
 
                 x = 10;
-                for (int i = 0; i < threadCount; i++) {
+                for (int i = 0; i < this.threadCount; i++) {
                     t = new Thread();
 
                     t.Index = i;
@@ -144,18 +161,18 @@ namespace inkleLoom {
 
         private void btnSave_Click(object sender, EventArgs e) {
 
-            saveDlg.FileName = "";
-            saveDlg.Filter = "Inkle loom|*.ikl";
+            this.saveDlg.FileName = "";
+            this.saveDlg.Filter = "Inkle loom|*.ikl";
 
 
-            if (saveDlg.ShowDialog() == DialogResult.OK) {
-                using (FileStream strm = new FileStream(saveDlg.FileName, FileMode.Create, FileAccess.Write)) {
+            if (this.saveDlg.ShowDialog() == DialogResult.OK) {
+                using (FileStream strm = new FileStream(this.saveDlg.FileName, FileMode.Create, FileAccess.Write)) {
                     StreamWriter writer = new StreamWriter(strm);
                     writer.BaseStream.Seek(0, SeekOrigin.End);
 
-                    writer.WriteLine(threads.Count);
+                    writer.WriteLine(this.threads.Count);
 
-                    foreach (Thread t in threads) {
+                    foreach (Thread t in this.threads) {
                         t.save(writer);
                     }
 
@@ -166,34 +183,33 @@ namespace inkleLoom {
         }
 
         private void btnExport_Click(object sender, EventArgs e) {
-            saveDlg.FileName = "";
-            saveDlg.Filter = "Image png|*.png";
+            this.saveDlg.FileName = "";
+            this.saveDlg.Filter = "Image png|*.png";
 
-            if (saveDlg.ShowDialog() == DialogResult.OK) {
+            if (this.saveDlg.ShowDialog() == DialogResult.OK) {
                 Bitmap b = new Bitmap(30 + Math.Max(this.bmp1.Width, this.bmp2.Width), this.bmp1.Height + 50 + this.bmp2.Height + 30);
                 Graphics gr = Graphics.FromImage(b);
                 gr.Clear(Color.White);
                 gr.DrawImage(this.bmp1, 15, 15);
                 gr.DrawImage(this.bmp2, 15, 15 + 50 + this.bmp1.Height);
 
-                b.Save(saveDlg.FileName);
+                b.Save(this.saveDlg.FileName);
             }
         }
 
         private void btnLoad_Click(object sender, EventArgs e) {
-            if (openDlg.ShowDialog() == DialogResult.OK) {
-                using (FileStream strm = new FileStream(openDlg.FileName, FileMode.Open, FileAccess.Read)) {
+            if (this.openDlg.ShowDialog() == DialogResult.OK) {
+                using (FileStream strm = new FileStream(this.openDlg.FileName, FileMode.Open, FileAccess.Read)) {
                     StreamReader reader = new StreamReader(strm);
 
-                    threads.Clear();
-                    pattern.Clear();
-                    dic.Clear();
+                    this.threads.Clear();
+                    this.pattern.Clear();
 
                     int cnt = Convert.ToInt32(reader.ReadLine()), x, y;
                     Color c;
 
-                    threadCount = cnt / ROW_CNT;
-                    cntThreads.Text = threadCount.ToString();
+                    this.threadCount = cnt / ROW_CNT;
+                    this.cntThreads.Text = this.threadCount.ToString();
 
                     for (int i = 0; i < cnt; i++) {
                         Thread t = new Thread();
@@ -211,33 +227,33 @@ namespace inkleLoom {
                         t.setPatternPosition(x, y);
 
 
-                        threads.Add(t);
+                        this.threads.Add(t);
                     }
 
                     reader.Close();
                 }
 
-                createBitmap();
+                this.createBitmap();
 
-                for (int i = 0; i < threadCount; i++) {
-                    pattern.Add(threads[i]);
+                for (int i = 0; i < this.threadCount; i++) {
+                    this.pattern.Add(this.threads[i]);
                 }
 
-                counter();
+                this.counter();
 
-                updateBitmap();
+                this.updateBitmap();
             }
         }
 
         private bool createBitmap() {
 
-            if (threadCount < 4) return false;
+            if (this.threadCount < 4) return false;
 
-            int p1 = 100 + (threadCount / 2 + 1) * Thread.THREAD_WID + 4 * Thread.THREAD_HEI,
-                p2 = 70 + threadCount * Thread.THREAD_HEI;
-            xThreadsCounter = (threadCount / 2 + 1) * Thread.THREAD_WID + 80 + Thread.THREAD_HEI * 4;
+            int p1 = 100 + (this.threadCount / 2 + 1) * Thread.THREAD_WID + 4 * Thread.THREAD_HEI,
+                p2 = 70 + this.threadCount * Thread.THREAD_HEI;
+            this.xThreadsCounter = (this.threadCount / 2 + 1) * Thread.THREAD_WID + 80 + Thread.THREAD_HEI * 4;
 
-            if (p2 < xThreadsCounter) p2 = xThreadsCounter;
+            if (p2 < this.xThreadsCounter) p2 = this.xThreadsCounter;
 
             if (this.bmp1 != null) this.bmp1.Dispose();
 
@@ -255,14 +271,9 @@ namespace inkleLoom {
                 t.draw(gr);
             }
 
-            int y = 20, x = xThreadsCounter - 3 * Thread.THREAD_HEI;
-            foreach (KeyValuePair<int, int> t in dic) {
-                gr.FillRectangle(new SolidBrush(Color.FromArgb(t.Key)), x, y, Thread.THREAD_HEI, Thread.THREAD_HEI);
-                gr.DrawRectangle(pen, x, y, Thread.THREAD_HEI, Thread.THREAD_HEI);
 
-                gr.DrawString(t.Value.ToString(), fnt, sb, x + Thread.THREAD_HEI + 4, y);
-
-                y += Thread.THREAD_HEI + 4;
+            foreach (ColorSquare q in this.colors) {
+                q.draw(gr);
             }
 
             gr = Graphics.FromImage(this.bmp2);
@@ -273,8 +284,8 @@ namespace inkleLoom {
             }
 
             if (this.pattern.Count > 0) {
-                gr.DrawString("H", this.fnt, this.sb, 10, 20);// this.bmp1.Height - 50)) ;
-                gr.DrawString("U", this.fnt, this.sb, 10, 45);// this.bmp1.Height - 24);
+                gr.DrawString("H", this.fnt, this.sb, 10, 20);
+                gr.DrawString("U", this.fnt, this.sb, 10, 45);
             }
 
             this.picBox.Image = this.bmp1;
@@ -283,9 +294,10 @@ namespace inkleLoom {
 
         private void counter() {
 
-            this.dic.Clear();
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+            this.colors.Clear();
 
-            foreach (Thread t in pattern) {
+            foreach (Thread t in this.pattern) {
                 if (t.Color == Color.Transparent) continue;
 
                 int clr = t.Color.ToArgb();
@@ -297,10 +309,24 @@ namespace inkleLoom {
                     dic[clr] = 1;
                 }
             }
+
+
+            int y = 20, x = this.xThreadsCounter - 3 * Thread.THREAD_HEI;
+            ColorSquare q;
+            foreach (KeyValuePair<int, int> t in dic) {
+                q = new ColorSquare();
+                q.setPosition(x, y);
+                q.Color = Color.FromArgb(t.Key);
+                q.Count = t.Value;
+
+                this.colors.Add(q);
+
+                y += Thread.THREAD_HEI + 4;
+            }
         }
 
         private void picBox2_MouseDown(object sender, MouseEventArgs e) {
-            foreach (Thread t in pattern) {
+            foreach (Thread t in this.pattern) {
                 if (t.RectP.Contains(e.Location)) {
                     Color c = t.Color;
                     this.color.BackColor = c;
@@ -317,8 +343,8 @@ namespace inkleLoom {
             this.pattern.Clear();
 
             Thread t;
-            int x = 30, y = 20;// this.bmp1.Height - 50;
-            for (int i = 0; i < threadCount; i++) {
+            int x = 30, y = 20;
+            for (int i = 0; i < this.threadCount; i++) {
                 t = this.threads[i];
                 t.setPatternPosition(x, y + (t.Type == Type.UNHEDDLED ? Thread.THREAD_HEI + 5 : 0));
                 this.pattern.Add(t);

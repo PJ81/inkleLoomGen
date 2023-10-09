@@ -11,11 +11,10 @@ namespace inkleLoom {
 
         internal const int THREAD_WID = 10, THREAD_HEI = 20;
 
-        private Pen pen = new Pen(Color.Black);
+        private readonly Pen pen = new Pen(Color.Black);
         private SolidBrush clr = null;
 
-        public int Index { get; set; }
-
+        internal int Index { get; set; }
 
         internal Color Color {
             get { return this.clr != null ? this.clr.Color : Color.Transparent; }
@@ -46,19 +45,19 @@ namespace inkleLoom {
         }
 
         internal void clearColor() {
-            if (clr != null) {
-                clr.Dispose();
-                clr = null;
+            if (this.clr != null) {
+                this.clr.Dispose();
+                this.clr = null;
             }
         }
 
         internal void save(StreamWriter writer) {
-            writer.WriteLine(Color.ToArgb());
-            writer.WriteLine(Type);
-            writer.WriteLine(Rect.X);
-            writer.WriteLine(Rect.Y);
-            writer.WriteLine(RectP.X);
-            writer.WriteLine(RectP.Y);
+            writer.WriteLine(this.Color.ToArgb());
+            writer.WriteLine(this.Type);
+            writer.WriteLine(this.Rect.X);
+            writer.WriteLine(this.Rect.Y);
+            writer.WriteLine(this.RectP.X);
+            writer.WriteLine(this.RectP.Y);
         }
     }
 }

@@ -47,6 +47,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnSymm = new System.Windows.Forms.CheckBox();
+            this.clrDlg = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.trackR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackB)).BeginInit();
@@ -309,6 +310,11 @@
             this.btnSymm.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnSymm.UseVisualStyleBackColor = true;
             // 
+            // clrDlg
+            // 
+            this.clrDlg.AnyColor = true;
+            this.clrDlg.FullOpen = true;
+            // 
             // Create
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -362,6 +368,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.CheckBox btnSymm;
         private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.ColorDialog clrDlg;
     }
 }
 
