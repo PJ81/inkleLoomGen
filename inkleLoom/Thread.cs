@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using System.IO;
 
 namespace inkleLoom {
 
@@ -9,10 +8,22 @@ namespace inkleLoom {
 
     class Thread {
 
-        internal const int THREAD_WID = 10, THREAD_HEI = 20;
+        internal const int THREAD_WID = 12, THREAD_HEI = 22, HTW = THREAD_WID / 2, HTH = THREAD_HEI / 2;
+
+        private Point[] pts = new Point[6];
+        private readonly Point[] tmp = new Point[6];
 
         private readonly Pen pen = new Pen(Color.Black);
         private SolidBrush clr = null;
+
+        public Thread() {
+            pts[0] = new Point(-HTW, -(HTH / 2));
+            pts[1] = new Point(0, -HTH);
+            pts[2] = new Point(HTW, -(HTH / 2));
+            pts[3] = new Point(HTW, HTH / 2);
+            pts[4] = new Point(0, HTH);
+            pts[5] = new Point(-HTW, HTH / 2);
+        }
 
         internal int Index { get; set; }
 
@@ -27,21 +38,29 @@ namespace inkleLoom {
 
         internal Rectangle RectP { get; private set; }
 
-        internal void setPosition(int x, int y) {
-            this.Rect = new Rectangle(x, y, THREAD_WID, THREAD_HEI);
-        }
+        internal void setPosition(int x, int y) => this.Rect = new Rectangle(x, y, THREAD_WID, THREAD_HEI);
 
-        internal void setPatternPosition(int x, int y) {
-            this.RectP = new Rectangle(x, y, THREAD_HEI, THREAD_HEI);
-        }
+        internal void setPatternPosition(int x, int y) => this.RectP = new Rectangle(x, y, THREAD_HEI, THREAD_HEI);
 
         internal void draw(Graphics gr, bool pat = false) {
-            Rectangle rc = pat ? this.RectP : this.Rect;
 
-            if (this.clr != null) {
-                gr.FillRectangle(this.clr, rc);
+            if (!pat) {
+                pts.CopyTo(tmp, 0);
+
+                for (int z = 0; z < 6; z++) {
+                    tmp[z].X += this.Rect.X + HTW;
+                    tmp[z].Y += this.Rect.Y + HTH;
+                }
+
+                if (this.clr != null) gr.FillPolygon(this.clr, tmp);
+                gr.DrawPolygon(this.pen, tmp);
+
             }
-            gr.DrawRectangle(this.pen, rc);
+            else {
+                if (this.clr != null) gr.FillRectangle(this.clr, this.RectP);
+                gr.DrawRectangle(this.pen, this.RectP);
+
+            }
         }
 
         internal void clearColor() {
@@ -49,15 +68,6 @@ namespace inkleLoom {
                 this.clr.Dispose();
                 this.clr = null;
             }
-        }
-
-        internal void save(StreamWriter writer) {
-            writer.WriteLine(this.Color.ToArgb());
-            writer.WriteLine(this.Type);
-            writer.WriteLine(this.Rect.X);
-            writer.WriteLine(this.Rect.Y);
-            writer.WriteLine(this.RectP.X);
-            writer.WriteLine(this.RectP.Y);
         }
     }
 }

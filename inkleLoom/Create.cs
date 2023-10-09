@@ -8,7 +8,7 @@ namespace inkleLoom {
 
     public partial class Create : Form {
 
-        private const int ROW_CNT = 8;
+        private const int ROW_CNT = 10;
 
         private readonly List<Thread> threads = new List<Thread>();
         private readonly List<ColorSquare> colors = new List<ColorSquare>();
@@ -102,7 +102,9 @@ namespace inkleLoom {
         }
 
         private void updateTheads(int index, Color color) {
-            int i = this.threadCount - index - 1;
+            bool o = this.threadCount % 2 == 1, u = threads[index].Type == Type.UNHEDDLED;
+            int i = this.threadCount - index - (o ? 1 : u ? 0 : 2);
+
             foreach (Thread t in this.threads) {
                 if (t.Index == i) {
                     if (color.A < 255) t.clearColor();
@@ -112,47 +114,8 @@ namespace inkleLoom {
         }
 
         private void btnCreate_Click(object sender, EventArgs e) {
-
             this.threadCount = Convert.ToInt32(this.cntThreads.Text);
-
-            if (!this.createBitmap()) return;
-
-            Graphics.FromImage(this.bmp1).Clear(Color.White);
-
-            this.threads.Clear();
-
-            int y = 16, x;
-            Thread t;
-
-            for (int w = 0; w < ROW_CNT; w++) {
-
-                x = 10;
-                for (int i = 0; i < this.threadCount; i++) {
-                    t = new Thread();
-
-                    t.Index = i;
-
-                    if (i % 2 == 0) {
-                        t.Type = Type.HEDDLED;
-                        t.setPosition(x, y);
-
-                    }
-                    else {
-                        t.Type = Type.UNHEDDLED;
-                        t.setPosition(x + Thread.THREAD_WID / 2, y + Thread.THREAD_HEI);
-                        x += Thread.THREAD_WID;
-                    }
-
-                    this.threads.Add(t);
-
-                }
-
-                y += 2 * Thread.THREAD_HEI;
-            }
-
-            this.createPattern();
-
-            this.updateBitmap();
+            this.createThreads();
         }
 
         private void cntThreads_TextChanged(object sender, EventArgs e) {
@@ -173,7 +136,7 @@ namespace inkleLoom {
                     writer.WriteLine(this.threads.Count);
 
                     foreach (Thread t in this.threads) {
-                        t.save(writer);
+                        writer.WriteLine(t.Color.ToArgb());
                     }
 
                     writer.Flush();
@@ -209,25 +172,13 @@ namespace inkleLoom {
                     Color c;
 
                     this.threadCount = cnt / ROW_CNT;
+
+                    this.createThreads();
                     this.cntThreads.Text = this.threadCount.ToString();
 
-                    for (int i = 0; i < cnt; i++) {
-                        Thread t = new Thread();
+                    foreach (Thread t in threads) {
                         c = Color.FromArgb(Convert.ToInt32(reader.ReadLine()));
                         if (c.A != 0) t.Color = c;
-
-                        t.Type = (Type)Enum.Parse(typeof(Type), reader.ReadLine());
-
-                        x = Convert.ToInt32(reader.ReadLine());
-                        y = Convert.ToInt32(reader.ReadLine());
-                        t.setPosition(x, y);
-
-                        x = Convert.ToInt32(reader.ReadLine());
-                        y = Convert.ToInt32(reader.ReadLine());
-                        t.setPatternPosition(x, y);
-
-
-                        this.threads.Add(t);
                     }
 
                     reader.Close();
@@ -245,6 +196,63 @@ namespace inkleLoom {
             }
         }
 
+        private void addMid_Click(object sender, EventArgs e) {
+            // not implemented
+        }
+
+        private void remMid_Click(object sender, EventArgs e) {
+            // not implemented
+        }
+
+        private void addBoard_Click(object sender, EventArgs e) {
+            // not implemented
+        }
+
+        private void remBoard_Click(object sender, EventArgs e) {
+            // not implemented
+        }
+
+        private void createThreads() {
+
+            if (!this.createBitmap()) return;
+
+            this.threads.Clear();
+            this.colors.Clear();
+
+            int y = 16, x;
+            Thread t;
+
+            for (int w = 0; w < ROW_CNT; w++) {
+
+                x = 20;
+                for (int i = 0; i < this.threadCount; i++) {
+                    t = new Thread();
+
+                    t.Index = i;
+
+                    if (i % 2 == 0) {
+                        t.Type = Type.HEDDLED;
+                        t.setPosition(x, y);
+
+                    }
+                    else {
+                        t.Type = Type.UNHEDDLED;
+                        t.setPosition(x + Thread.THREAD_WID / 2, y + Thread.THREAD_HEI - Thread.THREAD_WID / 2);
+                        x += Thread.THREAD_WID;
+                    }
+
+                    this.threads.Add(t);
+
+                }
+
+                y += (int)(1.46 * Thread.THREAD_HEI);
+            }
+
+            this.createPattern();
+
+            this.updateBitmap();
+        }
+
         private bool createBitmap() {
 
             if (this.threadCount < 4) return false;
@@ -256,6 +264,7 @@ namespace inkleLoom {
             if (p2 < this.xThreadsCounter) p2 = this.xThreadsCounter;
 
             if (this.bmp1 != null) this.bmp1.Dispose();
+            if (this.bmp2 != null) this.bmp2.Dispose();
 
             this.bmp1 = new Bitmap(p1, 350);
             this.bmp2 = new Bitmap(p2, 100);

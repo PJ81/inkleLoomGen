@@ -48,6 +48,10 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnSymm = new System.Windows.Forms.CheckBox();
             this.clrDlg = new System.Windows.Forms.ColorDialog();
+            this.addMid = new System.Windows.Forms.Button();
+            this.remMid = new System.Windows.Forms.Button();
+            this.remBoard = new System.Windows.Forms.Button();
+            this.addBoard = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackB)).BeginInit();
@@ -264,6 +268,10 @@
             // panel3
             // 
             this.panel3.AutoScroll = true;
+            this.panel3.Controls.Add(this.remBoard);
+            this.panel3.Controls.Add(this.addBoard);
+            this.panel3.Controls.Add(this.remMid);
+            this.panel3.Controls.Add(this.addMid);
             this.panel3.Controls.Add(this.btnExport);
             this.panel3.Controls.Add(this.btnSymm);
             this.panel3.Controls.Add(this.label1);
@@ -314,6 +322,62 @@
             // 
             this.clrDlg.AnyColor = true;
             this.clrDlg.FullOpen = true;
+            // 
+            // addMid
+            // 
+            this.addMid.Enabled = false;
+            this.addMid.Image = ((System.Drawing.Image)(resources.GetObject("addMid.Image")));
+            this.addMid.Location = new System.Drawing.Point(227, 53);
+            this.addMid.Name = "addMid";
+            this.addMid.Size = new System.Drawing.Size(62, 24);
+            this.addMid.TabIndex = 22;
+            this.addMid.Text = "Middle";
+            this.addMid.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.addMid.UseVisualStyleBackColor = true;
+            this.addMid.Visible = false;
+            this.addMid.Click += new System.EventHandler(this.addMid_Click);
+            // 
+            // remMid
+            // 
+            this.remMid.Enabled = false;
+            this.remMid.Image = ((System.Drawing.Image)(resources.GetObject("remMid.Image")));
+            this.remMid.Location = new System.Drawing.Point(292, 53);
+            this.remMid.Name = "remMid";
+            this.remMid.Size = new System.Drawing.Size(62, 24);
+            this.remMid.TabIndex = 23;
+            this.remMid.Text = "Middle";
+            this.remMid.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.remMid.UseVisualStyleBackColor = true;
+            this.remMid.Visible = false;
+            this.remMid.Click += new System.EventHandler(this.remMid_Click);
+            // 
+            // remBoard
+            // 
+            this.remBoard.Enabled = false;
+            this.remBoard.Image = ((System.Drawing.Image)(resources.GetObject("remBoard.Image")));
+            this.remBoard.Location = new System.Drawing.Point(422, 53);
+            this.remBoard.Name = "remBoard";
+            this.remBoard.Size = new System.Drawing.Size(62, 24);
+            this.remBoard.TabIndex = 25;
+            this.remBoard.Text = "Board";
+            this.remBoard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.remBoard.UseVisualStyleBackColor = true;
+            this.remBoard.Visible = false;
+            this.remBoard.Click += new System.EventHandler(this.remBoard_Click);
+            // 
+            // addBoard
+            // 
+            this.addBoard.Enabled = false;
+            this.addBoard.Image = ((System.Drawing.Image)(resources.GetObject("addBoard.Image")));
+            this.addBoard.Location = new System.Drawing.Point(357, 53);
+            this.addBoard.Name = "addBoard";
+            this.addBoard.Size = new System.Drawing.Size(62, 24);
+            this.addBoard.TabIndex = 24;
+            this.addBoard.Text = "Board";
+            this.addBoard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.addBoard.UseVisualStyleBackColor = true;
+            this.addBoard.Visible = false;
+            this.addBoard.Click += new System.EventHandler(this.addBoard_Click);
             // 
             // Create
             // 
@@ -369,6 +433,10 @@
         private System.Windows.Forms.CheckBox btnSymm;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.ColorDialog clrDlg;
+        private System.Windows.Forms.Button remBoard;
+        private System.Windows.Forms.Button addBoard;
+        private System.Windows.Forms.Button remMid;
+        private System.Windows.Forms.Button addMid;
     }
 }
 
