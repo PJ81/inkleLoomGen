@@ -186,10 +186,6 @@ namespace inkleLoom {
 
                 this.createBitmap();
 
-                for (int i = 0; i < this.threadCount; i++) {
-                    this.pattern.Add(this.threads[i]);
-                }
-
                 this.counter();
 
                 this.updateBitmap();
