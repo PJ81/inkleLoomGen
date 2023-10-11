@@ -45,13 +45,13 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.picBox2 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.remBoard = new System.Windows.Forms.Button();
+            this.addBoard = new System.Windows.Forms.Button();
+            this.remMid = new System.Windows.Forms.Button();
+            this.addMid = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnSymm = new System.Windows.Forms.CheckBox();
             this.clrDlg = new System.Windows.Forms.ColorDialog();
-            this.addMid = new System.Windows.Forms.Button();
-            this.remMid = new System.Windows.Forms.Button();
-            this.remBoard = new System.Windows.Forms.Button();
-            this.addBoard = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackB)).BeginInit();
@@ -210,7 +210,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 219);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(744, 377);
+            this.panel1.Size = new System.Drawing.Size(744, 425);
             this.panel1.TabIndex = 15;
             // 
             // btnSave
@@ -250,7 +250,7 @@
             this.panel2.AutoScroll = true;
             this.panel2.Controls.Add(this.picBox2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 596);
+            this.panel2.Location = new System.Drawing.Point(0, 644);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(744, 119);
             this.panel2.TabIndex = 18;
@@ -294,6 +294,62 @@
             this.panel3.Size = new System.Drawing.Size(744, 219);
             this.panel3.TabIndex = 19;
             // 
+            // remBoard
+            // 
+            this.remBoard.Enabled = false;
+            this.remBoard.Image = ((System.Drawing.Image)(resources.GetObject("remBoard.Image")));
+            this.remBoard.Location = new System.Drawing.Point(422, 53);
+            this.remBoard.Name = "remBoard";
+            this.remBoard.Size = new System.Drawing.Size(62, 24);
+            this.remBoard.TabIndex = 25;
+            this.remBoard.Text = "Board";
+            this.remBoard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.remBoard.UseVisualStyleBackColor = true;
+            this.remBoard.Visible = false;
+            this.remBoard.Click += new System.EventHandler(this.remBoard_Click);
+            // 
+            // addBoard
+            // 
+            this.addBoard.Enabled = false;
+            this.addBoard.Image = ((System.Drawing.Image)(resources.GetObject("addBoard.Image")));
+            this.addBoard.Location = new System.Drawing.Point(357, 53);
+            this.addBoard.Name = "addBoard";
+            this.addBoard.Size = new System.Drawing.Size(62, 24);
+            this.addBoard.TabIndex = 24;
+            this.addBoard.Text = "Board";
+            this.addBoard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.addBoard.UseVisualStyleBackColor = true;
+            this.addBoard.Visible = false;
+            this.addBoard.Click += new System.EventHandler(this.addBoard_Click);
+            // 
+            // remMid
+            // 
+            this.remMid.Enabled = false;
+            this.remMid.Image = ((System.Drawing.Image)(resources.GetObject("remMid.Image")));
+            this.remMid.Location = new System.Drawing.Point(292, 53);
+            this.remMid.Name = "remMid";
+            this.remMid.Size = new System.Drawing.Size(62, 24);
+            this.remMid.TabIndex = 23;
+            this.remMid.Text = "Middle";
+            this.remMid.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.remMid.UseVisualStyleBackColor = true;
+            this.remMid.Visible = false;
+            this.remMid.Click += new System.EventHandler(this.remMid_Click);
+            // 
+            // addMid
+            // 
+            this.addMid.Enabled = false;
+            this.addMid.Image = ((System.Drawing.Image)(resources.GetObject("addMid.Image")));
+            this.addMid.Location = new System.Drawing.Point(227, 53);
+            this.addMid.Name = "addMid";
+            this.addMid.Size = new System.Drawing.Size(62, 24);
+            this.addMid.TabIndex = 22;
+            this.addMid.Text = "Middle";
+            this.addMid.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.addMid.UseVisualStyleBackColor = true;
+            this.addMid.Visible = false;
+            this.addMid.Click += new System.EventHandler(this.addMid_Click);
+            // 
             // btnExport
             // 
             this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
@@ -323,68 +379,12 @@
             this.clrDlg.AnyColor = true;
             this.clrDlg.FullOpen = true;
             // 
-            // addMid
-            // 
-            this.addMid.Enabled = false;
-            this.addMid.Image = ((System.Drawing.Image)(resources.GetObject("addMid.Image")));
-            this.addMid.Location = new System.Drawing.Point(227, 53);
-            this.addMid.Name = "addMid";
-            this.addMid.Size = new System.Drawing.Size(62, 24);
-            this.addMid.TabIndex = 22;
-            this.addMid.Text = "Middle";
-            this.addMid.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.addMid.UseVisualStyleBackColor = true;
-            this.addMid.Visible = false;
-            this.addMid.Click += new System.EventHandler(this.addMid_Click);
-            // 
-            // remMid
-            // 
-            this.remMid.Enabled = false;
-            this.remMid.Image = ((System.Drawing.Image)(resources.GetObject("remMid.Image")));
-            this.remMid.Location = new System.Drawing.Point(292, 53);
-            this.remMid.Name = "remMid";
-            this.remMid.Size = new System.Drawing.Size(62, 24);
-            this.remMid.TabIndex = 23;
-            this.remMid.Text = "Middle";
-            this.remMid.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.remMid.UseVisualStyleBackColor = true;
-            this.remMid.Visible = false;
-            this.remMid.Click += new System.EventHandler(this.remMid_Click);
-            // 
-            // remBoard
-            // 
-            this.remBoard.Enabled = false;
-            this.remBoard.Image = ((System.Drawing.Image)(resources.GetObject("remBoard.Image")));
-            this.remBoard.Location = new System.Drawing.Point(422, 53);
-            this.remBoard.Name = "remBoard";
-            this.remBoard.Size = new System.Drawing.Size(62, 24);
-            this.remBoard.TabIndex = 25;
-            this.remBoard.Text = "Board";
-            this.remBoard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.remBoard.UseVisualStyleBackColor = true;
-            this.remBoard.Visible = false;
-            this.remBoard.Click += new System.EventHandler(this.remBoard_Click);
-            // 
-            // addBoard
-            // 
-            this.addBoard.Enabled = false;
-            this.addBoard.Image = ((System.Drawing.Image)(resources.GetObject("addBoard.Image")));
-            this.addBoard.Location = new System.Drawing.Point(357, 53);
-            this.addBoard.Name = "addBoard";
-            this.addBoard.Size = new System.Drawing.Size(62, 24);
-            this.addBoard.TabIndex = 24;
-            this.addBoard.Text = "Board";
-            this.addBoard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.addBoard.UseVisualStyleBackColor = true;
-            this.addBoard.Visible = false;
-            this.addBoard.Click += new System.EventHandler(this.addBoard_Click);
-            // 
             // Create
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(744, 715);
+            this.ClientSize = new System.Drawing.Size(744, 763);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);

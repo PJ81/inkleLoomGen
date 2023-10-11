@@ -241,7 +241,7 @@ namespace inkleLoom {
 
                 }
 
-                y += (int)(1.46 * Thread.THREAD_HEI);
+                y += (int)(1.5 * Thread.THREAD_HEI);
             }
 
             this.createPattern();
@@ -262,7 +262,7 @@ namespace inkleLoom {
             if (this.bmp1 != null) this.bmp1.Dispose();
             if (this.bmp2 != null) this.bmp2.Dispose();
 
-            this.bmp1 = new Bitmap(p1, 350);
+            this.bmp1 = new Bitmap(p1, 450);
             this.bmp2 = new Bitmap(p2, 100);
 
             return true;
@@ -284,13 +284,17 @@ namespace inkleLoom {
             gr = Graphics.FromImage(this.bmp2);
             gr.Clear(Color.White);
 
+            int h = 0;
             foreach (Thread t in this.pattern) {
                 t.draw(gr, true);
+                if (t.Type == Type.HEDDLED) h++;
             }
 
+            int u = pattern.Count - h;
+
             if (this.pattern.Count > 0) {
-                gr.DrawString("H", this.fnt, this.sb, 10, 20);
-                gr.DrawString("U", this.fnt, this.sb, 10, 45);
+                gr.DrawString("H " + h, this.fnt, this.sb, 10, 22);
+                gr.DrawString("U " + u, this.fnt, this.sb, 10, 52);
             }
 
             this.picBox.Image = this.bmp1;

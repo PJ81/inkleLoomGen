@@ -8,7 +8,7 @@ namespace inkleLoom {
 
     class Thread {
 
-        internal const int THREAD_WID = 12, THREAD_HEI = 22, HTW = THREAD_WID / 2, HTH = THREAD_HEI / 2;
+        internal const int THREAD_WID = 12, THREAD_HEI = 24, HTW = THREAD_WID / 2, HTH = THREAD_HEI / 2;
 
         private Point[] pts = new Point[6];
         private readonly Point[] tmp = new Point[6];
