@@ -208,9 +208,9 @@
             this.panel1.AutoScroll = true;
             this.panel1.Controls.Add(this.picBox);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 219);
+            this.panel1.Location = new System.Drawing.Point(0, 212);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(744, 425);
+            this.panel1.Size = new System.Drawing.Size(744, 469);
             this.panel1.TabIndex = 15;
             // 
             // btnSave
@@ -250,7 +250,7 @@
             this.panel2.AutoScroll = true;
             this.panel2.Controls.Add(this.picBox2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 644);
+            this.panel2.Location = new System.Drawing.Point(0, 681);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(744, 119);
             this.panel2.TabIndex = 18;
@@ -291,7 +291,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(744, 219);
+            this.panel3.Size = new System.Drawing.Size(744, 212);
             this.panel3.TabIndex = 19;
             // 
             // remBoard
@@ -384,7 +384,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(744, 763);
+            this.ClientSize = new System.Drawing.Size(744, 800);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);

@@ -215,12 +215,12 @@ namespace inkleLoom {
             this.threads.Clear();
             this.colors.Clear();
 
-            int y = 16, x;
+            int y = 30, x;
             Thread t;
 
             for (int w = 0; w < ROW_CNT; w++) {
 
-                x = 20;
+                x = 12;
                 for (int i = 0; i < this.threadCount; i++) {
                     t = new Thread();
 
@@ -276,25 +276,28 @@ namespace inkleLoom {
                 t.draw(gr);
             }
 
-
             foreach (ColorSquare q in this.colors) {
                 q.draw(gr);
             }
 
+            int h = 0;
+            foreach (Thread t in this.pattern) {
+                if (t.Type == Type.HEDDLED) h++;
+            }
+            int u = pattern.Count - h;
+
+            gr.DrawString(String.Format("Threads:{0} - H:{1} - U:{2}", (h + u), h, u), this.fnt, this.sb, 8, 0);
+
             gr = Graphics.FromImage(this.bmp2);
             gr.Clear(Color.White);
 
-            int h = 0;
             foreach (Thread t in this.pattern) {
                 t.draw(gr, true);
-                if (t.Type == Type.HEDDLED) h++;
             }
 
-            int u = pattern.Count - h;
-
             if (this.pattern.Count > 0) {
-                gr.DrawString("H " + h, this.fnt, this.sb, 10, 22);
-                gr.DrawString("U " + u, this.fnt, this.sb, 10, 52);
+                gr.DrawString("H", this.fnt, this.sb, 10, 22);
+                gr.DrawString("U", this.fnt, this.sb, 10, 52);
             }
 
             this.picBox.Image = this.bmp1;
@@ -320,7 +323,7 @@ namespace inkleLoom {
             }
 
 
-            int y = 20, x = this.xThreadsCounter - 3 * Thread.THREAD_HEI;
+            int y = 40, x = this.xThreadsCounter - 3 * Thread.THREAD_HEI;
             ColorSquare q;
             foreach (KeyValuePair<int, int> t in dic) {
                 q = new ColorSquare();
