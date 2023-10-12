@@ -254,7 +254,7 @@ namespace inkleLoom {
             if (this.threadCount < 4) return false;
 
             int p1 = 100 + (this.threadCount / 2 + 1) * Thread.THREAD_WID + 4 * Thread.THREAD_HEI,
-                p2 = 70 + this.threadCount * Thread.THREAD_HEI;
+                p2 = 70 + this.threadCount * Thread.PATTERN_SZ;
             this.xThreadsCounter = (this.threadCount / 2 + 1) * Thread.THREAD_WID + 80 + Thread.THREAD_HEI * 4;
 
             if (p2 < this.xThreadsCounter) p2 = this.xThreadsCounter;
@@ -296,8 +296,8 @@ namespace inkleLoom {
             }
 
             if (this.pattern.Count > 0) {
-                gr.DrawString("H", this.fnt, this.sb, 10, 22);
-                gr.DrawString("U", this.fnt, this.sb, 10, 52);
+                gr.DrawString("H", this.fnt, this.sb, this.pattern[0].RectP.X - Thread.PATTERN_SZ, this.pattern[0].RectP.Y);
+                gr.DrawString("U", this.fnt, this.sb, this.pattern[0].RectP.X, this.pattern[1].RectP.Y);
             }
 
             this.picBox.Image = this.bmp1;
@@ -358,10 +358,10 @@ namespace inkleLoom {
             int x = 30, y = 20;
             for (int i = 0; i < this.threadCount; i++) {
                 t = this.threads[i];
-                t.setPatternPosition(x, y + (t.Type == Type.UNHEDDLED ? Thread.THREAD_HEI + 5 : 0));
+                t.setPatternPosition(x, y + (t.Type == Type.UNHEDDLED ? Thread.PATTERN_SZ + 3 : 0));
                 this.pattern.Add(t);
 
-                x += Thread.THREAD_HEI;
+                x += Thread.PATTERN_SZ;
             }
         }
 

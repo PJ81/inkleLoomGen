@@ -8,7 +8,12 @@ namespace inkleLoom {
 
     class Thread {
 
-        internal const int THREAD_WID = 12, THREAD_HEI = 24, HTW = THREAD_WID / 2, HTH = THREAD_HEI / 2;
+        internal const int 
+            THREAD_WID = 12, 
+            THREAD_HEI = 24, 
+            PATTERN_SZ = 16,
+            HTW = THREAD_WID / 2, 
+            HTH = THREAD_HEI / 2;
 
         private Point[] pts = new Point[6];
         private readonly Point[] tmp = new Point[6];
@@ -40,7 +45,7 @@ namespace inkleLoom {
 
         internal void setPosition(int x, int y) => this.Rect = new Rectangle(x, y, THREAD_WID, THREAD_HEI);
 
-        internal void setPatternPosition(int x, int y) => this.RectP = new Rectangle(x, y, THREAD_HEI, THREAD_HEI);
+        internal void setPatternPosition(int x, int y) => this.RectP = new Rectangle(x, y, PATTERN_SZ, PATTERN_SZ);
 
         internal void draw(Graphics gr, bool pat = false) {
 
