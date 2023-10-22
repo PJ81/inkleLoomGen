@@ -172,7 +172,7 @@ namespace inkleLoom {
                     this.threads.Clear();
                     this.pattern.Clear();
 
-                    int cnt = Convert.ToInt32(reader.ReadLine()), x, y;
+                    int cnt = Convert.ToInt32(reader.ReadLine());
                     Color c;
 
                     this.threadCount = cnt / ROW_CNT;
