@@ -19,7 +19,9 @@ namespace inkleLoom {
         private readonly Point[] tmp = new Point[6];
 
         private readonly Pen pen = new Pen(Color.Black);
-        private SolidBrush clr = null;
+        private SolidBrush clr = null, threads = new SolidBrush(Color.Black);
+
+        public bool Selected { get; set; }
 
         public Thread() {
             pts[0] = new Point(-HTW, -(HTH / 2));
@@ -64,6 +66,9 @@ namespace inkleLoom {
             else {
                 if (this.clr != null) gr.FillRectangle(this.clr, this.RectP);
                 gr.DrawRectangle(this.pen, this.RectP);
+                if(this.Selected) {
+                    gr.FillEllipse(this.threads, this.RectP.X + PATTERN_SZ / 2 - 4, this.RectP.Y - 12, 8, 8);
+                }
 
             }
         }

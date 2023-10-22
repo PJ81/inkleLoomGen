@@ -17,6 +17,7 @@ namespace inkleLoom {
         readonly List<Thread> pattern = new List<Thread>();
         readonly Font fnt = new Font("Consolas", 12);
         readonly SolidBrush sb = new SolidBrush(Color.Black);
+        private int threadingPosition;
 
         public Create() {
             this.InitializeComponent();
@@ -115,6 +116,7 @@ namespace inkleLoom {
 
         private void btnCreate_Click(object sender, EventArgs e) {
             this.threadCount = Convert.ToInt32(this.cntThreads.Text);
+            this.threadingPosition = -1;
             this.createThreads();
         }
 
@@ -162,6 +164,8 @@ namespace inkleLoom {
 
         private void btnLoad_Click(object sender, EventArgs e) {
             if (this.openDlg.ShowDialog() == DialogResult.OK) {
+                this.threadingPosition = -1;
+
                 using (FileStream strm = new FileStream(this.openDlg.FileName, FileMode.Open, FileAccess.Read)) {
                     StreamReader reader = new StreamReader(strm);
 
@@ -338,6 +342,26 @@ namespace inkleLoom {
         }
 
         private void picBox2_MouseDown(object sender, MouseEventArgs e) {
+            if( e.Button == MouseButtons.Right && this.pattern.Count > 0) {
+
+                if (this.threadingPosition > -1) {
+                    this.pattern[this.threadingPosition].Selected = false;
+                    if(++this.threadingPosition >= this.pattern.Count) {
+                        this.threadingPosition = -1;
+                        this.updateBitmap();
+                        return;
+                    }
+
+                } else {
+                    this.threadingPosition = 0;
+                }
+
+                this.pattern[this.threadingPosition].Selected = true;
+                this.updateBitmap();
+
+                return;
+            }
+
             foreach (Thread t in this.pattern) {
                 if (t.RectP.Contains(e.Location)) {
                     Color c = t.Color;
