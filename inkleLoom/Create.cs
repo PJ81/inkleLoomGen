@@ -115,6 +115,7 @@ namespace inkleLoom {
         }
 
         private void btnCreate_Click(object sender, EventArgs e) {
+            this.Text = "Inkle Loom";
             this.threadCount = Convert.ToInt32(this.cntThreads.Text);
             this.threadingPosition = -1;
             this.createThreads();
@@ -131,6 +132,9 @@ namespace inkleLoom {
 
 
             if (this.saveDlg.ShowDialog() == DialogResult.OK) {
+
+                this.Text = "Inkle Loom [" + this.saveDlg.FileName + "]";
+
                 using (FileStream strm = new FileStream(this.saveDlg.FileName, FileMode.Create, FileAccess.Write)) {
                     StreamWriter writer = new StreamWriter(strm);
                     writer.BaseStream.Seek(0, SeekOrigin.End);
@@ -165,6 +169,8 @@ namespace inkleLoom {
         private void btnLoad_Click(object sender, EventArgs e) {
             if (this.openDlg.ShowDialog() == DialogResult.OK) {
                 this.threadingPosition = -1;
+
+                this.Text = "Inkle Loom [" + this.openDlg.FileName + "]";
 
                 using (FileStream strm = new FileStream(this.openDlg.FileName, FileMode.Open, FileAccess.Read)) {
                     StreamReader reader = new StreamReader(strm);
